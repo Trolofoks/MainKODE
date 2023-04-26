@@ -52,6 +52,11 @@ object Deps {
         const val hilt = "com.google.dagger:hilt-android:$version"
         const val annotation = "com.google.dagger:hilt-compiler:$version"
     }
+    object CircularImages{
+        private const val version = "3.1.0"
+
+        const val circular = "de.hdodenhof:circleimageview:$version"
+    }
 
     object Test {
         object Version {

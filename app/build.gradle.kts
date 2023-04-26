@@ -46,6 +46,8 @@ dependencies {
     implementation(Deps.Core.androidMaterial)
     implementation(Deps.Core.constaraiLayout)
 
+    implementation(Deps.CircularImages.circular)
+
     implementation(Deps.Hilt.hilt)
     annotationProcessor(Deps.Hilt.annotation)
 
