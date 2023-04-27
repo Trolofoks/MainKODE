@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">MainKODE</string>
+    <string name="search_hint">Введи имя, тег, почту...</string>
+
+
+    <string name="all">Все</string>
+    <string name="android">Android</string>
+    <string name="design">Дизайн</string>
+    <string name="management">Менеджмент</string>
+    <string name="qa">QA</string>
+    <string name="back_office">Бэк-офис</string>
+    <string name="frontend">Frontend</string>
+    <string name="hr">HR</string>
+    <string name="pr">PR</string>
+    <string name="backend">Backend</string>
+    <string name="support">Техподдержка</string>
+    <string name="analytics">Аналитика</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

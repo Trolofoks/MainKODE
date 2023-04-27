@@ -9,6 +9,7 @@ buildscript {
         classpath(Deps.ClassPath.androidGradlePlugin)
         classpath(Deps.ClassPath.kotlinGradlePlugin)
         classpath(Deps.ClassPath.daggerHiltPlugin)
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0")
     }
 }
 

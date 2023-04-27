@@ -48,6 +48,9 @@ dependencies {
 
     implementation(Deps.CircularImages.circular)
 
+    implementation(Deps.Navigation.fragment)
+    implementation(Deps.Navigation.ui)
+
     implementation(Deps.Hilt.hilt)
     annotationProcessor(Deps.Hilt.annotation)
 

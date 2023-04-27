@@ -58,6 +58,13 @@ object Deps {
         const val circular = "de.hdodenhof:circleimageview:$version"
     }
 
+    object Navigation {
+        private const val version = "2.5.3"
+
+        const val fragment = "androidx.navigation:navigation-fragment-ktx:$version"
+        const val ui = "androidx.navigation:navigation-ui-ktx:$version"
+    }
+
     object Test {
         object Version {
             const val junit = "1.1.1"
