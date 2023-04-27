@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.reflect.KClass
@@ -20,12 +19,12 @@ abstract class BaseFragment<VB : ViewBinding, VM: ViewModel>(
 
     private var _viewModel : ViewModel? = null
 
-    val viewModel: ViewModel
-        get() = _viewModel as ViewModel
+    val viewModel: VM
+        get() = _viewModel as VM
 
     private var _binding: VB? = null
 
-    val binging : VB
+    val binding : VB
         get() = _binding as VB
 
     override fun onCreateView(
@@ -38,7 +37,7 @@ abstract class BaseFragment<VB : ViewBinding, VM: ViewModel>(
         _binding = bindingInflater.invoke(inflater)
         if (_binding== null)
             throw IllegalArgumentException("Binding cannot be null")
-        return binging.root
+        return binding.root
     }
 
     override fun onDestroyView() {

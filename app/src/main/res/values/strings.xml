@@ -5,6 +5,7 @@
 
     <string name="all">Все</string>
     <string name="android">Android</string>
+    <string name="ios">iOS</string>
     <string name="design">Дизайн</string>
     <string name="management">Менеджмент</string>
     <string name="qa">QA</string>
