@@ -4,23 +4,17 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.honey.mainkode.model.Department
-import com.honey.mainkode.model.Person
+import com.honey.mainkode.model.People
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
-class MainFragmentViewModel @Inject constructor(
-    private val loadAppPersonsUseCase: () -> Unit
-) : ViewModel() {
+class MainFragmentViewModel : ViewModel() {
 
-    private var persons = MutableStateFlow<List<Person>?>(null)
     init {
-        Log.d("MyLog","Just Test for Recreating")
         loadData()
-        subscribeToPersons()
     }
 
     //ofc MVI should looks better
@@ -30,14 +24,11 @@ class MainFragmentViewModel @Inject constructor(
     private val _tabState = MutableStateFlow<Department>(Department.Hr)
     val tabState : StateFlow<Department> = _tabState.asStateFlow()
 
-    private val _personsToShowState = MutableStateFlow<List<Person>?>(null)
-    val personsToShowState : StateFlow<List<Person>?> = _personsToShowState.asStateFlow()
+    private val _personsToShowState = MutableStateFlow<List<People>>(emptyList())
+    val personsToShowState : StateFlow<List<People>> = _personsToShowState.asStateFlow()
 
-    private val _skeletonShowState = MutableStateFlow<Boolean>(true)
-    val skeletonShowState : StateFlow<Boolean> = _skeletonShowState.asStateFlow()
-
-    private val _errorShowState = MutableSharedFlow<Boolean>()
-    val errorShowState : SharedFlow<Boolean> = _errorShowState.asSharedFlow()
+    private val _errorShowShar = MutableSharedFlow<Boolean>()
+    val errorShowShar : SharedFlow<Boolean> = _errorShowShar.asSharedFlow()
 
     fun updateSearchField(value: String){
         _searchFieldState.value = value
@@ -45,7 +36,6 @@ class MainFragmentViewModel @Inject constructor(
 
     fun selectTab(department: Department){
         _tabState.value = department
-
     }
 
 
@@ -53,10 +43,10 @@ class MainFragmentViewModel @Inject constructor(
     private fun loadData(){
         viewModelScope.launch {
             //for future
-            loadAppPersonsUseCase
 
-            persons.value = listOf(
-                Person(
+            delay(3000)
+            _personsToShowState.value = listOf(
+                People(
                     firstName = "Dee",
                     lastName = "Reichert",
                     userTag = "LK",
@@ -65,7 +55,7 @@ class MainFragmentViewModel @Inject constructor(
                     dob = "2004-08-02",
                     phone = "802-623-1785"
                 ),
-                Person(
+                People(
                     firstName = "Dee",
                     lastName = "Reichert",
                     userTag = "LK",
@@ -74,7 +64,7 @@ class MainFragmentViewModel @Inject constructor(
                     dob = "2004-08-02",
                     phone = "802-623-1785"
                 ),
-                Person(
+                People(
                     firstName = "Dee",
                     lastName = "Reichert",
                     userTag = "LK",
@@ -83,7 +73,7 @@ class MainFragmentViewModel @Inject constructor(
                     dob = "2004-08-02",
                     phone = "802-623-1785"
                 ),
-                Person(
+                People(
                     firstName = "Dee",
                     lastName = "Reichert",
                     userTag = "LK",
@@ -92,7 +82,7 @@ class MainFragmentViewModel @Inject constructor(
                     dob = "2004-08-02",
                     phone = "802-623-1785"
                 ),
-                Person(
+                People(
                     firstName = "Dee",
                     lastName = "Reichert",
                     userTag = "LK",
@@ -102,24 +92,16 @@ class MainFragmentViewModel @Inject constructor(
                     phone = "802-623-1785"
                 )
             )
+            Log.d("MyLog","value: ${personsToShowState.value}")
             delay(10000)
-            if (persons == null){
-                //trigger for navigation to error screen
-                _errorShowState.tryEmit(true)
+            if (_personsToShowState.value.isEmpty()){
+                _errorShowShar.tryEmit(true)
             }
+
         }
+
     }
 
-    private fun subscribeToPersons() {
-        viewModelScope.launch {
-            persons.collect(){list->
-                if (list != null){
-                    _skeletonShowState.value = false
-                    _personsToShowState.value = list
-                }
-            }
-        }
-    }
 
-     val a = Department
+
 }

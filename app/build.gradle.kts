@@ -46,7 +46,9 @@ dependencies {
     implementation(Deps.Core.androidMaterial)
     implementation(Deps.Core.constaraiLayout)
 
-    implementation(Deps.CircularImages.circular)
+    implementation(Deps.ThirdParty.circular)
+    implementation(Deps.ThirdParty.picasso)
+    implementation(Deps.ThirdParty.sceleton)
 
     implementation(Deps.Navigation.fragment)
     implementation(Deps.Navigation.ui)

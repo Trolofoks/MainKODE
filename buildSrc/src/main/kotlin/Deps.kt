@@ -52,17 +52,26 @@ object Deps {
         const val hilt = "com.google.dagger:hilt-android:$version"
         const val annotation = "com.google.dagger:hilt-compiler:$version"
     }
-    object CircularImages{
-        private const val version = "3.1.0"
 
-        const val circular = "de.hdodenhof:circleimageview:$version"
-    }
+
 
     object Navigation {
         private const val version = "2.5.3"
 
         const val fragment = "androidx.navigation:navigation-fragment-ktx:$version"
         const val ui = "androidx.navigation:navigation-ui-ktx:$version"
+    }
+
+    object ThirdParty{
+        object Version{
+            const val circular = "3.1.0"
+            const val sceleton = "1.1.3"
+            const val picasso = "2.71828"
+        }
+
+        const val picasso = "com.squareup.picasso:picasso:${Version.picasso}"
+        const val sceleton = "com.github.skydoves:androidveil:${Version.sceleton}"
+        const val circular = "de.hdodenhof:circleimageview:${Version.circular}"
     }
 
     object Test {

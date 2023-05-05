@@ -7,17 +7,19 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
-import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.EntryPoint
 import kotlin.reflect.KClass
 
-@AndroidEntryPoint
+@EntryPoint
 abstract class BaseFragment<VB : ViewBinding, VM: ViewModel>(
     private val bindingInflater: (inflater : LayoutInflater) -> VB,
     private val viewModelClass : KClass<VM>
 ) : Fragment() {
 
     private var _viewModel : ViewModel? = null
+
 
     val viewModel: VM
         get() = _viewModel as VM
