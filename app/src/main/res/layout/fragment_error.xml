@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    tools:context=".ui.fragments.error.ErrorFragment">
+
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:src="@drawable/error_image" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_semibold"
+        android:gravity="center_horizontal"
+        android:paddingTop="8dp"
+        android:text="@string/error_genius_break_all"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:paddingTop="12dp"
+        android:text="постараемся быстро все починить"
+        android:textColor="@color/gray_text"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textButtonRetry"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:fontFamily="@font/inter_semibold"
+        android:gravity="center_horizontal"
+        android:paddingTop="12dp"
+        android:text="Попробывать снова"
+        android:textColor="@color/purple"
+        android:textSize="16sp" />
+
+</LinearLayout>

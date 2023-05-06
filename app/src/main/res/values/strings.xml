@@ -18,4 +18,5 @@
     <string name="analytics">Аналитика</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="error_genius_break_all">Какой-то сверхразум все сломал</string>
 </resources>
