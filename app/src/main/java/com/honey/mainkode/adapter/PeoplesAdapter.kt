@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.honey.mainkode.R
 import com.honey.mainkode.databinding.PeopleItemBinding
+import com.honey.mainkode.extension.stringRes
 import com.honey.mainkode.model.Department
 import com.honey.mainkode.model.People
 import com.squareup.picasso.Picasso
@@ -21,7 +22,8 @@ class PeoplesAdapter:ListAdapter<People, PeoplesAdapter.ViewHolder>(Comparator()
         fun bind(people: People){
             binding.apply {
                 textName.text = people.firstName + " " + people.lastName
-                Department.map[people.department]?.let { textDepartament.setText(it) }
+
+                people.department.stringRes()?.let { textDepartament.setText(it) }
                 textTag.text = people.userTag.lowercase()
                 Picasso.get().load(people.avatarURL).into(imageView)
             }

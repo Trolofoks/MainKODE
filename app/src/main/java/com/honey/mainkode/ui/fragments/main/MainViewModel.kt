@@ -2,6 +2,8 @@ package com.honey.mainkode.ui.fragments.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.material.tabs.TabLayout
+import com.honey.mainkode.extension.departmentByPose
 import com.honey.mainkode.model.Department
 import com.honey.mainkode.model.People
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,8 +18,8 @@ class MainViewModel : ViewModel() {
     private val _searchFieldState = MutableStateFlow<String>("")
     val searchFieldState : StateFlow<String> = _searchFieldState.asStateFlow()
 
-    private val _tabState = MutableStateFlow<Department>(Department.Hr)
-    val tabState : StateFlow<Department> = _tabState.asStateFlow()
+    private val _tabPosState = MutableStateFlow<TabLayout.Tab?>(null)
+    val tabPosState : StateFlow<TabLayout.Tab?> = _tabPosState.asStateFlow()
 
     private val _peoplesToShowState = MutableStateFlow<List<People>?>(null)
     val peoplesToShowState : StateFlow<List<People>?> = _peoplesToShowState.asStateFlow()
@@ -31,14 +33,14 @@ class MainViewModel : ViewModel() {
         loadData()
     }
 
-
-    fun setSelectTab(department: Department){
-        _tabState.value = department
+    fun setSelectTab(tab: TabLayout.Tab){
+        _tabPosState.value = tab
+        filterPeoples()
     }
 
     fun setSearchField(value: String){
         _searchFieldState.value = value
-        filterBySearchField(value)
+        filterPeoples()
     }
 
     fun setActiveScreen(boolean: Boolean){
@@ -46,15 +48,19 @@ class MainViewModel : ViewModel() {
     }
 
 
-    private fun filterBySearchField(searchFieldValue: String){
-        val value = searchFieldValue.lowercase()
+
+    private fun filterPeoples(){
+        val value = searchFieldState.value.lowercase()
         val newList = allPeoples.value.filter { people->
-            people.firstName.lowercase().contains(value) ||
+            (people.firstName.lowercase().contains(value) ||
             people.lastName.lowercase().contains(value) ||
             people.userTag.lowercase().contains(value) ||
             people.position.lowercase().contains(value) ||
             people.dob.lowercase().contains(value) ||
-            people.phone.lowercase().contains(value)
+            people.phone.lowercase().contains(value)) && (
+                people.department == tabPosState.value?.departmentByPose() ||
+                tabPosState.value?.departmentByPose() == Department.All
+            )
         }
         _peoplesToShowState.value = newList
     }
@@ -79,7 +85,7 @@ class MainViewModel : ViewModel() {
                         People(
                             firstName = "Dee",
                             lastName = "Reichert",
-                            userTag = "LK",
+                            userTag = "LN",
                             department = Department.BackOffice,
                             position = "Technician",
                             dob = "2004-08-02",
@@ -88,7 +94,7 @@ class MainViewModel : ViewModel() {
                         People(
                             firstName = "Dee",
                             lastName = "Reichert",
-                            userTag = "LK",
+                            userTag = "LI",
                             department = Department.BackOffice,
                             position = "Technician",
                             dob = "2004-08-02",
@@ -97,8 +103,8 @@ class MainViewModel : ViewModel() {
                         People(
                             firstName = "Dee",
                             lastName = "Reichert",
-                            userTag = "LK",
-                            department = Department.BackOffice,
+                            userTag = "KK",
+                            department = Department.Support,
                             position = "Technician",
                             dob = "2004-08-02",
                             phone = "802-623-1785"
@@ -106,8 +112,8 @@ class MainViewModel : ViewModel() {
                         People(
                             firstName = "Dee",
                             lastName = "Reichert",
-                            userTag = "LK",
-                            department = Department.BackOffice,
+                            userTag = "KI",
+                            department = Department.Android,
                             position = "Technician",
                             dob = "2004-08-02",
                             phone = "802-623-1785"

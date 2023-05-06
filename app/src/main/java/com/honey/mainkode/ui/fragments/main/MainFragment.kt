@@ -2,6 +2,7 @@ package com.honey.mainkode.ui.fragments.main
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
@@ -9,10 +10,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.tabs.TabLayout
 import com.honey.mainkode.R
 import com.honey.mainkode.adapter.PeoplesAdapter
 import com.honey.mainkode.base.BaseFragment
 import com.honey.mainkode.databinding.FragmentMainBinding
+import com.honey.mainkode.model.Department
 import kotlinx.coroutines.launch
 
 class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(
@@ -53,6 +56,14 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(
 
             }
         }
+        lifecycleScope.launch{
+            viewModel.tabPosState.collect{tab->
+                tab?.let {
+                    binding.include.tabLayout.selectTab(tab)
+                }
+            }
+        }
+
 
         binding.apply {
             editTextSearch.setOnFocusChangeListener { _, focused ->
@@ -75,6 +86,14 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(
             editTextSearch.addTextChangedListener {value->
                 viewModel.setSearchField(value.toString())
             }
+
+            include.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab) {
+                    viewModel.setSelectTab(tab)
+                }
+                override fun onTabUnselected(tab: TabLayout.Tab) {}
+                override fun onTabReselected(tab: TabLayout.Tab) {}
+            })
         }
 
     }
