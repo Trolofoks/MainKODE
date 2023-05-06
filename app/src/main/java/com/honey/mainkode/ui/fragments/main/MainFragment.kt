@@ -1,8 +1,10 @@
 package com.honey.mainkode.ui.fragments.main
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -50,6 +52,23 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(
                 }
 
             }
+        }
+
+        binding.editTextSearch.setOnFocusChangeListener { _, focused ->
+            if (focused){
+                binding.textButtonCancel.visibility = View.VISIBLE
+                binding.buttonSearch.setColorFilter(R.color.black)
+            } else {
+                binding.textButtonCancel.visibility = View.GONE
+                binding.buttonSearch.clearColorFilter()
+            }
+        }
+
+        binding.textButtonCancel.setOnClickListener {
+            binding.editTextSearch.clearFocus()
+            binding.editTextSearch.setText("")
+            val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(binding.editTextSearch.windowToken, 0)
         }
     }
 }
