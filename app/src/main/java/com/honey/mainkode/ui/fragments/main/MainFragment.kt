@@ -2,9 +2,9 @@ package com.honey.mainkode.ui.fragments.main
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -13,7 +13,6 @@ import com.honey.mainkode.R
 import com.honey.mainkode.adapter.PeoplesAdapter
 import com.honey.mainkode.base.BaseFragment
 import com.honey.mainkode.databinding.FragmentMainBinding
-import com.honey.mainkode.model.Constance
 import kotlinx.coroutines.launch
 
 class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(
@@ -36,11 +35,12 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(
         binding.recyclerView.addVeiledItems(15)
 
         lifecycleScope.launch {
-            viewModel.personsToShowState.collect(){peoples ->
-                if (peoples.isNotEmpty()) {
+            viewModel.peoplesToShowState.collect(){ peoples ->
+                peoples?.let {
                     binding.recyclerView.unVeil()
                     adapter.submitList(peoples)
                 }
+
             }
         }
 
@@ -54,21 +54,28 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(
             }
         }
 
-        binding.editTextSearch.setOnFocusChangeListener { _, focused ->
-            if (focused){
-                binding.textButtonCancel.visibility = View.VISIBLE
-                binding.buttonSearch.setColorFilter(R.color.black)
-            } else {
-                binding.textButtonCancel.visibility = View.GONE
-                binding.buttonSearch.clearColorFilter()
+        binding.apply {
+            editTextSearch.setOnFocusChangeListener { _, focused ->
+                if (focused){
+                    textButtonCancel.visibility = View.VISIBLE
+                    buttonSearch.setColorFilter(R.color.black)
+                } else {
+                    textButtonCancel.visibility = View.GONE
+                    buttonSearch.clearColorFilter()
+                }
+            }
+
+            textButtonCancel.setOnClickListener {
+                editTextSearch.clearFocus()
+                editTextSearch.setText("")
+                val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.hideSoftInputFromWindow(editTextSearch.windowToken, 0)
+            }
+
+            editTextSearch.addTextChangedListener {value->
+                viewModel.setSearchField(value.toString())
             }
         }
 
-        binding.textButtonCancel.setOnClickListener {
-            binding.editTextSearch.clearFocus()
-            binding.editTextSearch.setText("")
-            val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(binding.editTextSearch.windowToken, 0)
-        }
     }
 }
