@@ -125,5 +125,19 @@
             app:layout_constraintTop_toTopOf="parent"/>
     </FrameLayout>
 
+    <include
+        android:id="@+id/includeEmptyList"
+        layout="@layout/part_empty_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

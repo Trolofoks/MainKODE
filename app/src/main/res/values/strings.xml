@@ -20,4 +20,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="error_genius_break_all">Какой-то сверхразум все сломал</string>
     <string name="cancel">Отмена</string>
+    <string name="we_do_not_find_anyone">Мы никого не нашли</string>
+    <string name="try_use_another_query">Попробуй скорректировать запрос</string>
 </resources>

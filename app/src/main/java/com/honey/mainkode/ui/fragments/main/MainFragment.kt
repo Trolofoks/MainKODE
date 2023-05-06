@@ -39,8 +39,8 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(
                 peoples?.let {
                     binding.recyclerView.unVeil()
                     adapter.submitList(peoples)
+                    binding.includeEmptyList.root.visibility = if (peoples.isEmpty()) View.VISIBLE else View.GONE
                 }
-
             }
         }
 
