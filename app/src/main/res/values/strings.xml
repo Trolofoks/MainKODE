@@ -22,4 +22,7 @@
     <string name="cancel">Отмена</string>
     <string name="we_do_not_find_anyone">Мы никого не нашли</string>
     <string name="try_use_another_query">Попробуй скорректировать запрос</string>
+    <string name="by_dob">По дню рождению</string>
+    <string name="by_alphabet">По алфавиту</string>
+    <string name="sort">Сортирвка</string>
 </resources>

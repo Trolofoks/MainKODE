@@ -20,5 +20,14 @@
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:textCursorDrawable">@drawable/custom_cursor </item>
+        <item name="android:navigationBarColor">@color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:textColorPrimary">@color/black</item>
+
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_up_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_down_to_bottom</item>
     </style>
 </resources>

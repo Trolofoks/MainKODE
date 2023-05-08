@@ -1,9 +1,13 @@
 package com.honey.mainkode.ui.fragments.main
 
+import android.app.Dialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.View
+import android.view.*
 import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
@@ -12,17 +16,21 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
 import com.honey.mainkode.R
+import com.honey.mainkode.adapter.Listener
 import com.honey.mainkode.adapter.PeoplesAdapter
 import com.honey.mainkode.base.BaseFragment
 import com.honey.mainkode.databinding.FragmentMainBinding
-import com.honey.mainkode.model.Department
+import com.honey.mainkode.databinding.PartBottomSheetDialogBinding
+import com.honey.mainkode.model.Constance
+import com.honey.mainkode.model.People
+import com.honey.mainkode.model.SortBy
 import kotlinx.coroutines.launch
 
 class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(
     FragmentMainBinding::inflate,
     MainViewModel::class
-) {
-    private val adapter = PeoplesAdapter()
+), Listener {
+    private val adapter = PeoplesAdapter(this@MainFragment)
     private lateinit var controller : NavController
 
     override fun onResume() {
@@ -63,6 +71,13 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(
                 }
             }
         }
+        lifecycleScope.launch{
+            viewModel.sortByState.collect{sort->
+                adapter.dobSort(sort)
+
+            }
+        }
+
 
 
         binding.apply {
@@ -96,5 +111,62 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(
             })
         }
 
+        binding.buttonFilter.setOnClickListener {
+            showDialog()
+        }
+
+    }
+
+    private fun showDialog() {
+        val dialog = Dialog(requireContext())
+
+        val binding = PartBottomSheetDialogBinding.inflate(layoutInflater)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(binding.root)
+
+        dialog.show()
+        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
+        dialog.window?.setGravity(Gravity.BOTTOM)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            dialog.window?.insetsController?.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
+        } else {
+            @Suppress("DEPRECATION")
+            dialog.window?.decorView?.systemUiVisibility = (
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    )
+        }
+
+        binding.apply {
+            radioGroup.check(
+                when(viewModel.sortByState.value){
+                    SortBy.Alphabet -> radioButtonAlphabet.id
+                    SortBy.Dob -> radioButtonDob.id
+                }
+            )
+
+            radioGroup.setOnCheckedChangeListener { _, id ->
+                when(id){
+                    radioButtonAlphabet.id -> {
+                        viewModel.setSort(SortBy.Alphabet)
+                    }
+                    radioButtonDob.id -> {
+                        viewModel.setSort(SortBy.Dob)
+                    }
+                }
+            }
+
+        }
+
+    }
+
+    override fun onClickPeople(people: People) {
+        val bundle = Bundle()
+        bundle.putSerializable(Constance.DATA_TRANSFER_KEY, people)
+        controller.navigate(R.id.detailsFragment, bundle)
     }
 }

@@ -2,7 +2,8 @@ package com.honey.mainkode.model
 
 
 data class People(
-    val avatarURL : String = "https://randomuser.me/api/portraits/men/75.jpg",
+    //"https://randomuser.me/api/portraits/men/75.jpg"
+    val avatarURL : String = "",
     val firstName: String,
     val lastName: String,
     val userTag: String,
@@ -10,4 +11,4 @@ data class People(
     val position: String,
     val dob: String,
     val phone: String
-)
+) : java.io.Serializable

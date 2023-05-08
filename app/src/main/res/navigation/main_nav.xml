@@ -15,14 +15,22 @@
         <argument
             android:name="Key"
             app:argType="string" />
+        <action
+            android:id="@+id/action_mainFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/errorFragment"
         android:name="com.honey.mainkode.ui.fragments.error.ErrorFragment"
         android:label="fragment_error"
-        tools:layout="@layout/fragment_error" >
-        <action
-            android:id="@+id/action_errorFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+        tools:layout="@layout/fragment_error" />
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.honey.mainkode.ui.fragments.details.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" >
+        <argument
+            android:name="People"
+            app:argType="com.honey.mainkode.model.People" />
     </fragment>
 </navigation>

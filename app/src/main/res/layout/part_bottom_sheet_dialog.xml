@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialog_bg"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingHorizontal="10dp">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp" />
+
+    <View
+        android:layout_width="56dp"
+        android:layout_height="4dp"
+        android:background="@drawable/dialog_bar"
+        android:paddingTop="12dp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_semibold"
+        android:gravity="center_horizontal"
+        android:paddingTop="16dp"
+        android:text="@string/sort"
+        android:textSize="20sp" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="12dp"
+        android:paddingTop="16dp">
+
+        <RadioButton
+            android:id="@+id/radioButtonAlphabet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/purple"
+            android:checked="true"
+            android:text="@string/by_alphabet"
+            android:textSize="16sp" />
+
+
+        <RadioButton
+            android:id="@+id/radioButtonDob"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/purple"
+            android:text="@string/by_dob"
+            android:textSize="16sp" />
+
+    </RadioGroup>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="64dp" />
+
+</LinearLayout>
