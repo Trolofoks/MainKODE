@@ -24,5 +24,10 @@
     <string name="try_use_another_query">Попробуй скорректировать запрос</string>
     <string name="by_dob">По дню рождению</string>
     <string name="by_alphabet">По алфавиту</string>
-    <string name="sort">Сортирвка</string>
+    <string name="sort">Сортировка</string>
+
+    <string name="year1">лет</string>
+    <string name="year2">год</string>
+    <string name="year3">года</string>
+
 </resources>

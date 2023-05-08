@@ -1,5 +1,7 @@
 package com.honey.mainkode.model
 
+import java.io.Serializable
+
 
 data class People(
     //"https://randomuser.me/api/portraits/men/75.jpg"
@@ -11,4 +13,4 @@ data class People(
     val position: String,
     val dob: String,
     val phone: String
-) : java.io.Serializable
+) : Serializable
