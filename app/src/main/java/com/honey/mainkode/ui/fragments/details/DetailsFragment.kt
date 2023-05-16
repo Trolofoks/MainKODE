@@ -16,7 +16,7 @@ import com.honey.mainkode.databinding.FragmentDetailsBinding
 import com.honey.mainkode.extension.customGetSerializable
 import com.honey.mainkode.extension.stringRes
 import com.honey.mainkode.model.Constance
-import com.honey.mainkode.model.People
+import com.honey.model.People
 import com.squareup.picasso.Picasso
 import java.io.Serializable
 import java.time.LocalDate

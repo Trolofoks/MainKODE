@@ -1,19 +1,18 @@
 package com.honey.mainkode.ui.fragments.main
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.material.tabs.TabLayout
 import com.honey.mainkode.extension.departmentByPose
-import com.honey.mainkode.model.Department
-import com.honey.mainkode.model.People
-import com.honey.mainkode.model.SortBy
+import com.honey.model.SortBy
+import com.honey.model.Department
+import com.honey.model.People
+
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
 @HiltViewModel
@@ -64,7 +63,7 @@ class MainViewModel : ViewModel() {
         val filtered = filterPeoples(
             peopleList = allPeoples.value,
             searchField = searchFieldState.value,
-            department = (tabPosState.value?.departmentByPose())?:Department.All
+            department = (tabPosState.value?.departmentByPose())?: Department.All
         )
         val sorted = sortBy(
             peopleList = filtered,

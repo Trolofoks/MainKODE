@@ -1,4 +1,4 @@
-package com.honey.mainkode.model
+package com.honey.model
 
 sealed class SortBy {
     object Alphabet : SortBy()

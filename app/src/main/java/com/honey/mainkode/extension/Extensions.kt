@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.support.annotation.StringRes
 import com.google.android.material.tabs.TabLayout
 import com.honey.mainkode.R
-import com.honey.mainkode.model.Department
+import com.honey.model.Department
 import java.io.Serializable
 
 

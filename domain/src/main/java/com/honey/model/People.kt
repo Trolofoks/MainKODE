@@ -1,4 +1,4 @@
-package com.honey.mainkode.model
+package com.honey.model
 
 import java.io.Serializable
 

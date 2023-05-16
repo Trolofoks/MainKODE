@@ -9,10 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.honey.mainkode.R
 import com.honey.mainkode.databinding.PeopleItemBinding
 import com.honey.mainkode.extension.stringRes
-import com.honey.mainkode.model.People
-import com.honey.mainkode.model.SortBy
+import com.honey.model.SortBy
+import com.honey.model.People
 import com.squareup.picasso.Picasso
-import kotlinx.coroutines.coroutineScope
 import java.time.LocalDate
 import java.util.*
 

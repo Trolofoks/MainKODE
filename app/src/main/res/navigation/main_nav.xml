@@ -31,6 +31,6 @@
         tools:layout="@layout/fragment_details" >
         <argument
             android:name="People"
-            app:argType="com.honey.mainkode.model.People" />
+            app:argType="com.honey.model.People" />
     </fragment>
 </navigation>

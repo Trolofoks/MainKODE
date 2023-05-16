@@ -38,8 +38,8 @@ android {
 }
 
 dependencies {
-    project(path = ":data")
-    project(path = ":domain")
+    implementation(project(":domain"))
+    implementation(project(":data"))
 
     implementation(Deps.Core.coreKts)
     implementation(Deps.Core.appCompat)

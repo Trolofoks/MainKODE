@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
@@ -22,8 +21,8 @@ import com.honey.mainkode.base.BaseFragment
 import com.honey.mainkode.databinding.FragmentMainBinding
 import com.honey.mainkode.databinding.PartBottomSheetDialogBinding
 import com.honey.mainkode.model.Constance
-import com.honey.mainkode.model.People
-import com.honey.mainkode.model.SortBy
+import com.honey.model.SortBy
+import com.honey.model.People
 import kotlinx.coroutines.launch
 
 class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(), Listener {

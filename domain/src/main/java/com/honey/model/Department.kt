@@ -1,7 +1,4 @@
-package com.honey.mainkode.model
-
-import android.support.annotation.StringRes
-import com.honey.mainkode.R
+package com.honey.model
 
 sealed class Department {
     object All : Department()
