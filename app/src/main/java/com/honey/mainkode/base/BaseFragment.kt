@@ -10,33 +10,39 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.EntryPoint
+import dagger.hilt.android.AndroidEntryPoint
+import java.lang.reflect.ParameterizedType
 import kotlin.reflect.KClass
 
 @EntryPoint
-abstract class BaseFragment<VB : ViewBinding, VM: ViewModel>(
-    private val bindingInflater: (inflater : LayoutInflater) -> VB,
-    private val viewModelClass : KClass<VM>
-) : Fragment() {
+abstract class BaseFragment<VB : ViewBinding, VM: ViewModel> : Fragment() {
+    private val type = (javaClass.genericSuperclass as ParameterizedType)
+    private val classVB = type.actualTypeArguments[0] as Class<VB>
+    private val classVM = type.actualTypeArguments[1] as Class<VM>
 
     private var _viewModel : ViewModel? = null
-
-
     val viewModel: VM
         get() = _viewModel as VM
 
     private var _binding: VB? = null
-
     val binding : VB
         get() = _binding as VB
+
+    private val inflateMethod = classVB.getMethod(
+        "inflate",
+        LayoutInflater::class.java,
+        ViewGroup::class.java,
+        Boolean::class.java
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _viewModel = ViewModelProvider(this).get(viewModelClass.java)
+        _viewModel = ViewModelProvider(this).get(classVM)
 
-        _binding = bindingInflater.invoke(inflater)
+        _binding = inflateMethod.invoke(null, inflater, container, false) as VB
         if (_binding== null)
             throw IllegalArgumentException("Binding cannot be null")
         return binding.root

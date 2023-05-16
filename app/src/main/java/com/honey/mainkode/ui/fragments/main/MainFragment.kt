@@ -26,10 +26,7 @@ import com.honey.mainkode.model.People
 import com.honey.mainkode.model.SortBy
 import kotlinx.coroutines.launch
 
-class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(
-    FragmentMainBinding::inflate,
-    MainViewModel::class
-), Listener {
+class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(), Listener {
     private val adapter = PeoplesAdapter(this@MainFragment)
     private lateinit var controller : NavController
 

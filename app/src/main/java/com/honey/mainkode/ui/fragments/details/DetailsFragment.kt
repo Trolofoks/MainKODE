@@ -23,10 +23,7 @@ import java.time.LocalDate
 import java.time.Period
 import java.util.*
 
-class DetailsFragment : BaseFragment<FragmentDetailsBinding, DetailsViewModel>(
-    FragmentDetailsBinding::inflate,
-    DetailsViewModel::class
-) {
+class DetailsFragment : BaseFragment<FragmentDetailsBinding, DetailsViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

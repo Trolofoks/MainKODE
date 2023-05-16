@@ -17,10 +17,7 @@ import com.honey.mainkode.model.Constance
 import kotlinx.coroutines.launch
 
 
-class ErrorFragment : BaseFragment<FragmentErrorBinding, ErrorViewModel>(
-    FragmentErrorBinding::inflate,
-    ErrorViewModel::class
-) {
+class ErrorFragment : BaseFragment<FragmentErrorBinding, ErrorViewModel>() {
     private lateinit var controller : NavController
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
