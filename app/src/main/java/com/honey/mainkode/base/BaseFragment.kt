@@ -10,11 +10,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.EntryPoint
+import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.reflect.ParameterizedType
 import kotlin.reflect.KClass
 
-@EntryPoint
 abstract class BaseFragment<VB : ViewBinding, VM: ViewModel> : Fragment() {
     private val type = (javaClass.genericSuperclass as ParameterizedType)
     private val classVB = type.actualTypeArguments[0] as Class<VB>

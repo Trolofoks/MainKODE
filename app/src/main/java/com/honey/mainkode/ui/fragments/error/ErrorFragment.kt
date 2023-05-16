@@ -14,9 +14,10 @@ import com.honey.mainkode.R
 import com.honey.mainkode.base.BaseFragment
 import com.honey.mainkode.databinding.FragmentErrorBinding
 import com.honey.mainkode.model.Constance
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-
+@AndroidEntryPoint
 class ErrorFragment : BaseFragment<FragmentErrorBinding, ErrorViewModel>() {
     private lateinit var controller : NavController
 

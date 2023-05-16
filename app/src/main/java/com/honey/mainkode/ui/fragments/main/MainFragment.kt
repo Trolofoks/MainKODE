@@ -23,8 +23,12 @@ import com.honey.mainkode.databinding.PartBottomSheetDialogBinding
 import com.honey.mainkode.model.Constance
 import com.honey.model.SortBy
 import com.honey.model.People
+import dagger.hilt.EntryPoint
+import dagger.hilt.InstallIn
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(), Listener {
     private val adapter = PeoplesAdapter(this@MainFragment)
     private lateinit var controller : NavController

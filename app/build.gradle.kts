@@ -54,7 +54,7 @@ dependencies {
     implementation(Deps.Navigation.ui)
 
     implementation(Deps.Hilt.hilt)
-    annotationProcessor(Deps.Hilt.annotation)
+    kapt(Deps.Hilt.annotation)
 
     testImplementation(Deps.Test.junit)
     testImplementation(Deps.Test.androidJunit)

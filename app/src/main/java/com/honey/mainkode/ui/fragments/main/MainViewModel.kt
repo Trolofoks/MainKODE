@@ -7,6 +7,8 @@ import com.honey.mainkode.extension.departmentByPose
 import com.honey.model.SortBy
 import com.honey.model.Department
 import com.honey.model.People
+import com.honey.usecase.FilterPeoplesUseCase
+import com.honey.usecase.SortPeoplesUseCase
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -14,9 +16,14 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
+import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel : ViewModel() {
+class MainViewModel @Inject constructor(
+    private val filterPeoplesUseCase: FilterPeoplesUseCase,
+    private val sortPeoplesUseCase: SortPeoplesUseCase
+): ViewModel() {
+
     private val allPeoples = MutableStateFlow<List<People>>(emptyList())
     //ofc MVI should looks better
     private val _searchFieldState = MutableStateFlow<String>("")
@@ -60,67 +67,17 @@ class MainViewModel : ViewModel() {
     }
 
     private fun setNewPeoples(){
-        val filtered = filterPeoples(
+        val filtered = filterPeoplesUseCase.invoke(
             peopleList = allPeoples.value,
             searchField = searchFieldState.value,
             department = (tabPosState.value?.departmentByPose())?: Department.All
         )
-        val sorted = sortBy(
+        val sorted = sortPeoplesUseCase.invoke(
             peopleList = filtered,
             sort = sortByState.value,
             today = LocalDate.now()
         )
         _peoplesToShowState.value = sorted
-    }
-
-    private fun sortBy(
-        peopleList: List<People>,
-        sort: SortBy,
-        today: LocalDate
-    ) : List<People>{
-        val newList : List<People> = when(sort){
-            SortBy.Alphabet -> {
-                peopleList.sortedBy { it.firstName }
-            }
-            SortBy.Dob -> {
-                dobSort(peopleList, today)
-            }
-        }
-        return newList
-    }
-
-
-    private fun dobSort(peopleList: List<People>,  today: LocalDate) : List<People>{
-        val sortedList = peopleList.sortedWith(compareBy
-        { person ->
-            val dob = LocalDate.parse(person.dob)
-            val nextBirthday = if (dob.withYear(today.year).isBefore(today)) {
-                dob.withYear(today.year + 1)
-            } else {
-                dob.withYear(today.year)
-            }
-            ChronoUnit.DAYS.between(today, nextBirthday)
-        })
-        return sortedList
-    }
-
-    private fun filterPeoples(
-        peopleList : List<People>,
-        searchField: String,
-        department: Department
-    ) : List<People>{
-        val value = searchField.lowercase()
-        val newList = peopleList.filter { people->
-            (people.firstName.lowercase().contains(value) ||
-            people.lastName.lowercase().contains(value) ||
-            people.userTag.lowercase().contains(value) ||
-            people.position.lowercase().contains(value) ||
-            people.dob.lowercase().contains(value) ||
-            people.phone.lowercase().contains(value)) && (
-                people.department == department || department == Department.All
-            )
-        }
-        return newList
     }
 
     //fake API call

@@ -7,9 +7,10 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
-class ErrorViewModel : ViewModel(){
+class ErrorViewModel @Inject constructor() : ViewModel(){
 
     private val _navigateToMainShar = MutableSharedFlow<Boolean>()
     val navigateToMainShar : SharedFlow<Boolean> = _navigateToMainShar.asSharedFlow()

@@ -18,11 +18,13 @@ import com.honey.mainkode.extension.stringRes
 import com.honey.mainkode.model.Constance
 import com.honey.model.People
 import com.squareup.picasso.Picasso
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.Serializable
 import java.time.LocalDate
 import java.time.Period
 import java.util.*
 
+@AndroidEntryPoint
 class DetailsFragment : BaseFragment<FragmentDetailsBinding, DetailsViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
