@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
@@ -47,10 +48,22 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(), Listene
 
         lifecycleScope.launch {
             viewModel.peoplesToShowState.collect(){ peoples ->
-                peoples?.let {
+                adapter.submitList(peoples)
+                if (peoples.isNotEmpty()){
+                    binding.includeEmptyList.root.visibility = View.GONE
+                } else {
+                    binding.includeEmptyList.root.visibility = View.VISIBLE
+                }
+            }
+        }
+
+        lifecycleScope.launch{
+            viewModel.skeletonsShowState.collect{ visible->
+                if (visible) {
+                    binding.recyclerView.veil()
+                    binding.includeEmptyList.root.visibility = View.GONE
+                } else {
                     binding.recyclerView.unVeil()
-                    adapter.submitList(peoples)
-                    binding.includeEmptyList.root.visibility = if (peoples.isEmpty()) View.VISIBLE else View.GONE
                 }
             }
         }

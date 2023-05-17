@@ -1,6 +1,7 @@
 package com.honey.mainkode.di
 
 import com.honey.usecase.FilterPeoplesUseCase
+import com.honey.usecase.LoadPeoplesUseCase
 import com.honey.usecase.SortPeoplesUseCase
 import dagger.Module
 import dagger.Provides
@@ -20,5 +21,10 @@ class DomainModule {
     @Provides
     fun provideFilterPeoplesUseCase(): FilterPeoplesUseCase{
         return FilterPeoplesUseCase()
+    }
+
+    @Provides
+    fun provideLoadPeoplesUseCase(): LoadPeoplesUseCase{
+        return LoadPeoplesUseCase()
     }
 }

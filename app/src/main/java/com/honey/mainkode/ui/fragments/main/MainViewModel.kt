@@ -1,5 +1,6 @@
 package com.honey.mainkode.ui.fragments.main
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.material.tabs.TabLayout
@@ -8,6 +9,7 @@ import com.honey.model.SortBy
 import com.honey.model.Department
 import com.honey.model.People
 import com.honey.usecase.FilterPeoplesUseCase
+import com.honey.usecase.LoadPeoplesUseCase
 import com.honey.usecase.SortPeoplesUseCase
 
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,9 +23,9 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val filterPeoplesUseCase: FilterPeoplesUseCase,
-    private val sortPeoplesUseCase: SortPeoplesUseCase
+    private val sortPeoplesUseCase: SortPeoplesUseCase,
+    private val loadPeoplesUseCase: LoadPeoplesUseCase
 ): ViewModel() {
-
     private val allPeoples = MutableStateFlow<List<People>>(emptyList())
     //ofc MVI should looks better
     private val _searchFieldState = MutableStateFlow<String>("")
@@ -32,8 +34,11 @@ class MainViewModel @Inject constructor(
     private val _tabPosState = MutableStateFlow<TabLayout.Tab?>(null)
     val tabPosState : StateFlow<TabLayout.Tab?> = _tabPosState.asStateFlow()
 
-    private val _peoplesToShowState = MutableStateFlow<List<People>?>(null)
-    val peoplesToShowState : StateFlow<List<People>?> = _peoplesToShowState.asStateFlow()
+    private val _peoplesToShowState = MutableStateFlow<List<People>>(emptyList())
+    val peoplesToShowState : StateFlow<List<People>> = _peoplesToShowState.asStateFlow()
+
+    private val _skeletonsShowState = MutableStateFlow<Boolean>(true)
+    val skeletonsShowState : StateFlow<Boolean> = _skeletonsShowState.asStateFlow()
 
     private val _errorShowShar = MutableSharedFlow<Boolean>()
     val errorShowShar : SharedFlow<Boolean> = _errorShowShar.asSharedFlow()
@@ -44,7 +49,7 @@ class MainViewModel @Inject constructor(
     private val screenActive = MutableStateFlow<Boolean>(false)
 
     init {
-        loadData()
+        observeActive()
     }
 
     fun setSelectTab(tab: TabLayout.Tab){
@@ -67,68 +72,42 @@ class MainViewModel @Inject constructor(
     }
 
     private fun setNewPeoples(){
-        val filtered = filterPeoplesUseCase.invoke(
-            peopleList = allPeoples.value,
-            searchField = searchFieldState.value,
-            department = (tabPosState.value?.departmentByPose())?: Department.All
-        )
-        val sorted = sortPeoplesUseCase.invoke(
-            peopleList = filtered,
-            sort = sortByState.value,
-            today = LocalDate.now()
-        )
-        _peoplesToShowState.value = sorted
+        if (allPeoples.value.isNotEmpty()){
+            val filtered = filterPeoplesUseCase.invoke(
+                peopleList = allPeoples.value,
+                searchField = searchFieldState.value,
+                department = (tabPosState.value?.departmentByPose())?: Department.All
+            )
+            val sorted = sortPeoplesUseCase.invoke(
+                peopleList = filtered,
+                sort = sortByState.value,
+                today = LocalDate.now()
+            )
+            _skeletonsShowState.value = false
+            _peoplesToShowState.value = sorted
+        }
     }
 
     //fake API call
     private fun loadData(){
         viewModelScope.launch {
-            screenActive.collect{ active->
-                //after add pull-to-refresh can change while to if TODO
-                while (allPeoples.value.isEmpty() && active){
-                    delay(3000)
-                    val peoples  = arrayListOf<People>()
-                    for (i in 0..1) {
-                        peoples.add(
-                            People(
-                                firstName = "Bee",
-                                lastName = "Reichert" + "$i",
-                                userTag = "LK",
-                                department = Department.BackOffice,
-                                position = "Technician",
-                                dob = "2004-01-10",
-                                phone = "802-623-1785"
-                            )
-                        )
-                        peoples.add(
-                            People(
-                                firstName = "Aee",
-                                lastName = "Reichert" + "$i",
-                                userTag = "LK",
-                                department = Department.BackOffice,
-                                position = "Technician",
-                                dob = "2004-07-29",
-                                phone = "802-623-1785"
-                            )
-                        )
-                        peoples.add(
-                            People(
-                                firstName = "Cee",
-                                lastName = "Reichert" + "$i",
-                                userTag = "LK",
-                                department = Department.BackOffice,
-                                position = "Technician",
-                                dob = "2004-10-20",
-                                phone = "802-623-1785"
-                            )
-                        )
-                    }
-                    allPeoples.value = peoples
-                    setNewPeoples()
-                    delay(10000)
-                    if (allPeoples.value.isEmpty()){
-                        _errorShowShar.emit(true)
-                    }
+            delay(500)
+            _skeletonsShowState.value = true
+            try {
+                val people = loadPeoplesUseCase.invoke()
+                allPeoples.value = people
+                setNewPeoples()
+            } catch (e: Exception){
+                _errorShowShar.emit(true)
+            }
+        }
+    }
+
+    private fun observeActive(){
+        viewModelScope.launch {
+            screenActive.collect(){active->
+                if (active && allPeoples.value.isEmpty()){
+                    loadData()
                 }
             }
         }
