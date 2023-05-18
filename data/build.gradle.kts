@@ -30,7 +30,7 @@ android {
 }
 
 dependencies {
-    project(path = ":domain")
+    implementation(project(":domain"))
 
     implementation(Deps.Retrofit.retrofit)
     implementation(Deps.Retrofit.converterGson)

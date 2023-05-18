@@ -17,7 +17,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.time.LocalDate
-import java.time.temporal.ChronoUnit
 import javax.inject.Inject
 
 @HiltViewModel
@@ -94,10 +93,13 @@ class MainViewModel @Inject constructor(
             delay(500)
             _skeletonsShowState.value = true
             try {
+                Log.d("MyLog", "Starting Api call")
                 val people = loadPeoplesUseCase.invoke()
+                Log.d("MyLog", "End result What we get $people")
                 allPeoples.value = people
                 setNewPeoples()
             } catch (e: Exception){
+                Log.d("MyLog","Error catched -> $e")
                 _errorShowShar.emit(true)
             }
         }

@@ -53,6 +53,9 @@ dependencies {
     implementation(Deps.Navigation.fragment)
     implementation(Deps.Navigation.ui)
 
+    implementation(Deps.Retrofit.retrofit)
+    implementation(Deps.Retrofit.converterGson)
+
     implementation(Deps.Hilt.hilt)
     kapt(Deps.Hilt.annotation)
 
