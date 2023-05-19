@@ -8,12 +8,17 @@
     android:orientation="vertical"
     tools:context=".ui.fragments.details.DetailsFragment">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/white_little_gray"
+        />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/transparent"
+        android:background="@color/white_little_gray"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 

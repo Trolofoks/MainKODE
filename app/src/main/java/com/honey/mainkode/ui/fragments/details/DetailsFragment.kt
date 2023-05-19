@@ -2,6 +2,7 @@ package com.honey.mainkode.ui.fragments.details
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.icu.text.DateFormatSymbols
 import android.os.Build
 import android.os.Bundle
@@ -10,6 +11,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.DrawableCompat
 import com.honey.mainkode.R
 import com.honey.mainkode.base.BaseFragment
 import com.honey.mainkode.databinding.FragmentDetailsBinding
@@ -31,6 +34,22 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding, DetailsViewModel>()
         super.onViewCreated(view, savedInstanceState)
         val people = arguments?.customGetSerializable<People>(Constance.DATA_TRANSFER_KEY)
         setStatusBarColor(R.color.white_little_gray)
+        val toolbar = binding.toolbar
+
+        (activity as AppCompatActivity).apply {
+            setSupportActionBar(toolbar)
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            supportActionBar?.title = ""
+
+            val drawable = toolbar.navigationIcon?.mutate()
+            if (drawable != null) {
+                DrawableCompat.setTint(drawable, Color.BLACK)
+            }
+            toolbar.navigationIcon = drawable
+        }
+        toolbar.setNavigationOnClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
 
         people?.let {
             binding.apply {
@@ -44,6 +63,8 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding, DetailsViewModel>()
                 textYearsOld.text = calculateAge(people.dob)
             }
         }
+
+
     }
 
     override fun onDestroy() {
