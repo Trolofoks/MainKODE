@@ -70,6 +70,10 @@ class MainViewModel @Inject constructor(
         setNewPeoples()
     }
 
+    fun setRefreshData(){
+        loadData()
+    }
+
     private fun setNewPeoples(){
         if (allPeoples.value.isNotEmpty()){
             val filtered = filterPeoplesUseCase.invoke(
@@ -87,15 +91,12 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    //fake API call
     private fun loadData(){
         viewModelScope.launch {
             delay(500)
             _skeletonsShowState.value = true
             try {
-                Log.d("MyLog", "Starting Api call")
                 val people = loadPeoplesUseCase.invoke()
-                Log.d("MyLog", "End result What we get $people")
                 allPeoples.value = people
                 setNewPeoples()
             } catch (e: Exception){

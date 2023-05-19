@@ -67,11 +67,13 @@ object Deps {
             const val circular = "3.1.0"
             const val sceleton = "1.1.3"
             const val picasso = "2.71828"
+            const val swipe2Refresh = "1.1.0"
         }
 
         const val picasso = "com.squareup.picasso:picasso:${Version.picasso}"
         const val sceleton = "com.github.skydoves:androidveil:${Version.sceleton}"
         const val circular = "de.hdodenhof:circleimageview:${Version.circular}"
+        const val swipe2Refresh = "androidx.swiperefreshlayout:swiperefreshlayout:${Version.swipe2Refresh}"
     }
 
     object Test {

@@ -105,24 +105,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include">
 
-        <com.skydoves.androidveil.VeilRecyclerFrameView
-            android:id="@+id/recyclerView"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:veilFrame_layout="@layout/people_item"
-            app:veilFrame_veiled="true"
-            app:veilFrame_radius="64dp"
-            app:veilFrame_baseAlpha="3.0"
-            app:veilFrame_highlightAlpha="1.0"
-            app:veilFrame_baseColor="@color/white_gray"
-            app:veilFrame_highlightColor="@color/white_little_gray"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:layout_height="match_parent">
+
+        <com.skydoves.androidveil.VeilRecyclerFrameView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:veilFrame_layout="@layout/people_item"
+                app:veilFrame_veiled="true"
+                app:veilFrame_radius="64dp"
+                app:veilFrame_baseAlpha="3.0"
+                app:veilFrame_highlightAlpha="1.0"
+                app:veilFrame_baseColor="@color/white_gray"
+                app:veilFrame_highlightColor="@color/white_little_gray"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </FrameLayout>
 
     <include

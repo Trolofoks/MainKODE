@@ -64,6 +64,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(), Listene
                     binding.includeEmptyList.root.visibility = View.GONE
                 } else {
                     binding.recyclerView.unVeil()
+                    binding.swipeRefreshLayout.isRefreshing = false
                 }
             }
         }
@@ -94,6 +95,13 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(), Listene
 
 
         binding.apply {
+            swipeRefreshLayout.setOnRefreshListener {
+                viewModel.setRefreshData()
+            }
+            swipeRefreshLayout.setColorSchemeColors(
+                requireContext().getColor(R.color.purple)
+            )
+
             editTextSearch.setOnFocusChangeListener { _, focused ->
                 if (focused){
                     textButtonCancel.visibility = View.VISIBLE

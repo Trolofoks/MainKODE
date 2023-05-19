@@ -49,6 +49,7 @@ dependencies {
     implementation(Deps.ThirdParty.circular)
     implementation(Deps.ThirdParty.picasso)
     implementation(Deps.ThirdParty.sceleton)
+    implementation(Deps.ThirdParty.swipe2Refresh)
 
     implementation(Deps.Navigation.fragment)
     implementation(Deps.Navigation.ui)
