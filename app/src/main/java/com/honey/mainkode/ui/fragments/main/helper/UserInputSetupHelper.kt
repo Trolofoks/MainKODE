@@ -12,13 +12,14 @@ import com.honey.mainkode.R
 import com.honey.mainkode.databinding.FragmentMainBinding
 import com.honey.mainkode.ui.fragments.main.MainViewModel
 
-class UserInputHelper(
+class UserInputSetupHelper(
     private val binding: FragmentMainBinding,
     private val activity: FragmentActivity,
     private val context: Context,
     private val dialogHelper: DialogHelper,
+    private val viewModel: MainViewModel
 ) {
-    fun setupObservers(viewModel: MainViewModel) {
+    fun setupObservers() {
         binding.apply {
             swipeRefreshLayout.setOnRefreshListener {
                 viewModel.setRefreshData()

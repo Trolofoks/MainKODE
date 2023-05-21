@@ -9,13 +9,14 @@ import com.honey.mainkode.databinding.FragmentMainBinding
 import com.honey.mainkode.ui.fragments.main.MainViewModel
 import kotlinx.coroutines.launch
 
-class ViewModelObserverHelper(
+class ViewModelInputSetupHelper(
     private val viewModel: MainViewModel,
     private val adapter: PeoplesAdapter,
-    private val lifecycleScope: LifecycleCoroutineScope
-
+    private val lifecycleScope: LifecycleCoroutineScope,
+    private val binding: FragmentMainBinding,
+    private val controller: NavController
 ) {
-    fun setupObservers(binding: FragmentMainBinding, controller: NavController) {
+    fun setupObservers() {
         lifecycleScope.launch {
             viewModel.peoplesToShowState.collect { peoples ->
                 adapter.submitList(peoples)

@@ -29,13 +29,8 @@ class ErrorFragment : BaseFragment<FragmentErrorBinding, ErrorViewModel>() {
 
         lifecycleScope.launch{
             viewModel.navigateToMainShar.collect{nav->
-                if (nav) navigate()
+                if (nav) controller.navigateUp()
             }
         }
     }
-
-    private fun navigate(){
-        controller.navigateUp()
-    }
-
 }

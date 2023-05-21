@@ -3,8 +3,6 @@ package com.honey.mainkode.ui.fragments.main
 import android.os.Bundle
 import android.view.*
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.honey.mainkode.R
 import com.honey.mainkode.adapter.Listener
@@ -13,8 +11,8 @@ import com.honey.mainkode.base.BaseFragment
 import com.honey.mainkode.databinding.FragmentMainBinding
 import com.honey.mainkode.model.Constance
 import com.honey.mainkode.ui.fragments.main.helper.DialogHelper
-import com.honey.mainkode.ui.fragments.main.helper.UserInputHelper
-import com.honey.mainkode.ui.fragments.main.helper.ViewModelObserverHelper
+import com.honey.mainkode.ui.fragments.main.helper.UserInputSetupHelper
+import com.honey.mainkode.ui.fragments.main.helper.ViewModelInputSetupHelper
 import com.honey.model.People
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -36,11 +34,13 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(), Listene
 
         val dialogHelper = DialogHelper(binding, viewModel, requireContext())
 
-        val userInputSetupHelper = UserInputHelper(binding, requireActivity(), requireContext(), dialogHelper)
-        userInputSetupHelper.setupObservers(viewModel)
+        UserInputSetupHelper(
+            binding, requireActivity(), requireContext(), dialogHelper, viewModel
+        ).setupObservers()
 
-        val viewModelObserverHelper = ViewModelObserverHelper(viewModel, adapter, viewLifecycleOwner.lifecycleScope)
-        viewModelObserverHelper.setupObservers(binding, controller)
+        ViewModelInputSetupHelper(
+            viewModel, adapter, viewLifecycleOwner.lifecycleScope, binding, controller
+        ).setupObservers()
     }
 
     override fun onClickPeople(people: People) {
@@ -48,6 +48,4 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(), Listene
         bundle.putSerializable(Constance.DATA_TRANSFER_KEY, people)
         controller.navigate(R.id.detailsFragment, bundle)
     }
-
-
 }
