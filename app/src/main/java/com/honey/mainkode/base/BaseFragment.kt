@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
@@ -19,6 +21,8 @@ abstract class BaseFragment<VB : ViewBinding, VM: ViewModel> : Fragment() {
     private val type = (javaClass.genericSuperclass as ParameterizedType)
     private val classVB = type.actualTypeArguments[0] as Class<VB>
     private val classVM = type.actualTypeArguments[1] as Class<VM>
+
+    lateinit var controller : NavController
 
     private var _viewModel : ViewModel? = null
     val viewModel: VM
@@ -40,6 +44,8 @@ abstract class BaseFragment<VB : ViewBinding, VM: ViewModel> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        controller = findNavController()
+
         _viewModel = ViewModelProvider(this).get(classVM)
 
         _binding = inflateMethod.invoke(null, inflater, container, false) as VB

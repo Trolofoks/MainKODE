@@ -19,11 +19,9 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ErrorFragment : BaseFragment<FragmentErrorBinding, ErrorViewModel>() {
-    private lateinit var controller : NavController
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        controller = findNavController()
 
         binding.textButtonRetry.setOnClickListener {
             viewModel.retryButtonClicked()

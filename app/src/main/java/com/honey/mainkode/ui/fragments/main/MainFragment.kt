@@ -21,7 +21,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(), Listener {
     private val adapter = PeoplesAdapter(this@MainFragment)
-    private lateinit var controller : NavController
 
     override fun onResume() {
         super.onResume()
@@ -31,7 +30,6 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>(), Listene
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        controller = findNavController()
         binding.recyclerView.setLayoutManager(LinearLayoutManager(activity))
         binding.recyclerView.setAdapter(adapter)
         binding.recyclerView.addVeiledItems(15)
