@@ -1,8 +1,11 @@
 package com.honey.mainkode.extension
 
+import android.app.Dialog
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.StringRes
+import android.view.View
+import android.view.WindowInsets
 import com.google.android.material.tabs.TabLayout
 import com.honey.mainkode.R
 import com.honey.model.Department
@@ -57,5 +60,18 @@ inline fun <reified T : Serializable> Bundle.customGetSerializable(key: String):
     } else {
         @Suppress("DEPRECATION")
         getSerializable(key) as? T
+    }
+}
+
+fun Dialog.hideSystemUI() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        window?.insetsController?.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
+    } else {
+        @Suppress("DEPRECATION")
+        window?.decorView?.systemUiVisibility = (
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                )
     }
 }

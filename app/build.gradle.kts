@@ -58,6 +58,7 @@ dependencies {
     implementation(Deps.Retrofit.converterGson)
 
     implementation(Deps.Hilt.hilt)
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     kapt(Deps.Hilt.annotation)
 
     testImplementation(Deps.Test.junit)
